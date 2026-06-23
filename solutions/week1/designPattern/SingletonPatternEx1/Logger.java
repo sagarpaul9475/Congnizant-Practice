@@ -1,3 +1,4 @@
+package solutions.week1.designPattern.SingletonPatternEx1;
 public class Logger {
 
     // Private static instance

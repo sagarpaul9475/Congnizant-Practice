@@ -1,3 +1,4 @@
+package solutions.week1.designPattern.SingletonPatternEx1;
 public class LoggerTest {
 
     public static void main(String[] args) {
