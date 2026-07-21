@@ -1,0 +1,16 @@
+.App {
+    margin: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.textRed {
+    color: red;
+}
+
+.textGreen {
+    color: green;
+}
+
+img {
+    margin-bottom: 10px;
+}
