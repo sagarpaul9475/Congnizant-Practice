@@ -7,10 +7,12 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HighlightDirective } from '../../directives/highlight.directive';
+import { CreditLabelPipe } from '../../pipes/credit-label.pipe';
 @Component({
   selector: 'app-course-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,HighlightDirective,CreditLabelPipe],
   templateUrl: './course-card.component.html',
   styleUrl: './course-card.component.css'
 })
