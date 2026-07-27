@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { Course } from '../models/course.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -64,8 +69,46 @@ export class CourseService {
 
 }
 
-  getCourses(): Observable<Course[]> {
-  return this.http.get<Course[]>(this.apiUrl);
+getCourses(): Observable<Course[]> {
+
+  return this.http.get<Course[]>(this.apiUrl).pipe(
+
+    retry(2),
+
+    tap(courses =>
+
+      console.log(
+
+        'Courses loaded:',
+
+        courses.length
+
+      )
+
+    ),
+
+    map(courses =>
+
+      courses.filter(c => c.credits > 0)
+
+    ),
+
+    catchError(error =>
+
+      throwError(() =>
+
+        new Error(
+
+          'Failed to load courses after retrying.'
+
+        )
+
+      )
+
+    )
+
+  );
+
 }
 
   getCourseById(id: number): Observable<Course> {
