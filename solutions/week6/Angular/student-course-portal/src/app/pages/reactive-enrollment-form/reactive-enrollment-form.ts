@@ -8,17 +8,15 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormArray } from '@angular/forms';
 
-import { courseIdValidator } from '../../validators/course-id.validator';
-import { emailTakenValidator } from '../../validators/email.validator';
+import { courseIdValidator } from '../../validators/course-id';
+import { emailTakenValidator } from '../../validators/email';
 
 @Component({
   selector: 'app-reactive-enrollment-form',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    courseIdValidator,
-    emailTakenValidator
+    ReactiveFormsModule
   ],
   templateUrl: './reactive-enrollment-form.component.html',
   styleUrl: './reactive-enrollment-form.component.css'
@@ -51,7 +49,7 @@ export class ReactiveEnrollmentFormComponent implements OnInit {
     null,
     [
       Validators.required,
-      courseIdValidator()
+      courseIdValidator
     ]
   ],
 

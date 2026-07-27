@@ -8,6 +8,8 @@ import { EnrollmentFormComponent } from './pages/enrollment-form/enrollment-form
 import { ReactiveEnrollmentFormComponent } from './pages/reactive-enrollment-form/reactive-enrollment-form';
 import { NotFoundComponent } from './pages/not-found/not-found';
 import { CoursesLayoutComponent } from './pages/courses-layout/courses-layout';
+import { authGuard } from './guards/auth-guard';
+import { unsavedChangesGuard } from './guards/unsaved-changes-guard';
 export const routes: Routes = [
 
   {
@@ -27,18 +29,30 @@ export const routes: Routes = [
 
   {
     path: 'profile',
+    canActivate: [authGuard],
     component: StudentProfileComponent
-  },
+},
 
   {
     path: 'enroll',
-    component: EnrollmentFormComponent
-  },
+    canActivate: [authGuard],
+    loadChildren: () =>
+        import('./features/enrollment/enrollment-module')
+            .then(m => m.EnrollmentModule)
+},
 
   {
-    path: 'enroll-reactive',
-    component: ReactiveEnrollmentFormComponent
-  },
+    path: 'reactive',
+
+    component: ReactiveEnrollmentFormComponent,
+
+    canDeactivate: [
+
+        unsavedChangesGuard
+
+    ]
+
+},
 
   {
     path: '**',
