@@ -17,3 +17,24 @@ select{
 button{
     padding:10px 20px;
 }
+.ng-invalid.ng-touched {
+    border: 2px solid red;
+}
+
+.ng-valid.ng-touched {
+    border: 2px solid green;
+}
+
+.error {
+    color: red;
+    margin-top: 5px;
+}
+
+small {
+    display: block;
+}
+.success {
+    color: green;
+    margin-top: 20px;
+    font-weight: bold;
+}

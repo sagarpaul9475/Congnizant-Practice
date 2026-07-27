@@ -19,10 +19,17 @@ export class EnrollmentFormComponent {
   courseId: number | null = null;
   preferredSemester = 'Odd';
   agreeToTerms = false;
+  submitted = false;
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
-    console.log('Valid:', form.valid);
+
+  console.log(form.value);
+  console.log(form.valid);
+
+  if (form.valid) {
+    this.submitted = true;
   }
+
+}
 
 }
