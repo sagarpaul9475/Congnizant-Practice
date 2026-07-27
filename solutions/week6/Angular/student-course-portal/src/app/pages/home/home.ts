@@ -24,10 +24,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   availableCourses = 12;
 
   ngOnInit(): void {
-
-  this.courseCount = this.courseService.getCourses().length;
-
-}
+    this.courseService.getCourses().subscribe((courses) => {
+      this.courseCount = courses.length;
+    });
+  }
 
   ngOnDestroy(): void {
     console.log('HomeComponent destroyed');

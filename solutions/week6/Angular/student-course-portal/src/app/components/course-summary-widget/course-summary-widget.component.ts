@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../../services/course.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-summary-widget',
@@ -16,7 +17,11 @@ export class CourseSummaryWidgetComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.totalCourses = this.courseService.getCourses().length;
+    this.courseService.getCourses().pipe(
+      map(courses => courses.length)
+    ).subscribe(length => {
+      this.totalCourses = length;
+    });
 
   }
 
