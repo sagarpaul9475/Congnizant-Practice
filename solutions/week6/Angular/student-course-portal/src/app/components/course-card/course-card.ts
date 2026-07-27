@@ -28,8 +28,27 @@ export class CourseCardComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     console.log('Course changed:', changes);
   }
+  isExpanded = false;
 
-  enroll() {
-    this.enrollRequested.emit(this.course.id);
-  }
+isEnrolled = false;
+
+toggleDetails() {
+  this.isExpanded = !this.isExpanded;
+}
+
+
+
+// Getter keeps the template cleaner
+get cardClasses() {
+  return {
+    'card--enrolled': this.isEnrolled,
+    'card--full': this.course.credits >= 4,
+    'expanded': this.isExpanded
+  };
+}
+
+ enroll() {
+  this.isEnrolled = true;
+  this.enrollRequested.emit(this.course.id);
+}
 }
