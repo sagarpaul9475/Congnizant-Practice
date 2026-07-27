@@ -37,8 +37,20 @@
         </span>
     </p>
 
-    <button (click)="enroll()">
-    {{ enrolled ? 'Unenroll' : 'Enroll' }}
+    <button
+  *ngIf="!((enrolledIds$ | async)?.includes(course.id))"
+  (click)="enroll()">
+
+    Enroll
+
+</button>
+
+<button
+  *ngIf="(enrolledIds$ | async)?.includes(course.id)"
+  (click)="unenroll()">
+
+    Unenroll
+
 </button>
 
     <button (click)="toggleDetails()">

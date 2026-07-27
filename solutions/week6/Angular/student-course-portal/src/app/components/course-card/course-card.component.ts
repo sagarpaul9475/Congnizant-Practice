@@ -10,6 +10,27 @@ import { CommonModule } from '@angular/common';
 import { HighlightDirective } from '../../directives/highlight.directives';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
 import { EnrollmentService } from '../../services/enrollment.service';
+import { Store } from '@ngrx/store';
+
+import {
+
+Observable
+
+} from 'rxjs';
+
+import {
+
+selectEnrolledIds
+
+} from '../../store/enrollment/enrollment.selectors';
+
+import {
+
+enrollInCourse,
+
+unenrollFromCourse
+
+} from '../../store/enrollment/enrollment.actions';
 @Component({
   selector: 'app-course-card',
   standalone: true,
@@ -18,9 +39,19 @@ import { EnrollmentService } from '../../services/enrollment.service';
   styleUrl: './course-card.component.css'
 })
 export class CourseCardComponent implements OnChanges {
+  enrolledIds$!:Observable<number[]>;
   constructor(
-  private enrollmentService: EnrollmentService
-) {}
+  private enrollmentService: EnrollmentService,
+  private store:Store
+) {
+this.enrolledIds$=
+
+this.store.select(
+
+selectEnrolledIds
+
+);
+}
 
   @Input() course!: {
     id: number;
@@ -57,19 +88,30 @@ get enrolled(): boolean {
   return this.enrollmentService.isEnrolled(this.course.id);
 
 }
- enroll() {
+enroll(){
 
-  if (this.enrollmentService.isEnrolled(this.course.id)) {
+this.store.dispatch(
 
-    this.enrollmentService.unenroll(this.course.id);
+enrollInCourse({
 
-  } else {
+courseId:this.course.id
 
-    this.enrollmentService.enroll(this.course.id);
+})
 
-  }
+);
 
-  this.enrollRequested.emit(this.course.id);
+}
+unenroll(){
+
+this.store.dispatch(
+
+unenrollFromCourse({
+
+courseId:this.course.id
+
+})
+
+);
 
 }
 }

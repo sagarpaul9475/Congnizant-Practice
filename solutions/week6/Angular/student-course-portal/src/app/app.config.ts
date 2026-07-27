@@ -9,6 +9,8 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideState } from '@ngrx/store';
 import { courseReducer } from './store/course/course.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { CourseEffects } from './store/course/course.effects';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -34,6 +36,11 @@ export const appConfig: ApplicationConfig = {
 
       maxAge: 25
 
-    })
+    }),
+    provideEffects([
+
+CourseEffects
+
+])
   ]
 };
