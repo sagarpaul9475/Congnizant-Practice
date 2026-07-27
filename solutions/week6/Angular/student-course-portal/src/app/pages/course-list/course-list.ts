@@ -5,6 +5,25 @@ import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import {
+
+  Observable
+
+} from 'rxjs';
+
+import {
+
+  selectAllCourses
+
+} from '../../store/course/course.selectors';
+
+import {
+
+  loadCourses
+
+} from '../../store/course/course.actions';
 @Component({
   selector: 'app-course-list',
   standalone: true,
@@ -12,12 +31,15 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './course-list.component.html',
   styleUrl: './course-list.component.css',
 })
+
 export class CourseListComponent implements OnInit {
+  courses$!: Observable<Course[]>;
 constructor(
 
     private courseService: CourseService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store
 
 ) {}
 viewCourse(courseId: number) {
@@ -40,6 +62,19 @@ viewCourse(courseId: number) {
   ngOnInit(): void {
 
   this.isLoading = true;
+  this.courses$ =
+
+    this.store.select(
+
+      selectAllCourses
+
+    );
+
+  this.store.dispatch(
+
+    loadCourses()
+
+  );
 
   this.courseService.getCourses().subscribe({
 

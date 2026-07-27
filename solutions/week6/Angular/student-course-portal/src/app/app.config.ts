@@ -5,6 +5,10 @@ import { routes } from './app.routes';
 import { authInterceptor } from './interceptors/auth-interceptor';
 import { errorHandlerInterceptor } from './interceptors/error-handler-interceptor';
 import { loadingInterceptor } from './interceptors/loading-interceptor';
+import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideState } from '@ngrx/store';
+import { courseReducer } from './store/course/course.reducer';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -16,6 +20,20 @@ export const appConfig: ApplicationConfig = {
         loadingInterceptor
 
       ])
-    )
+    ),
+    provideStore({}),
+    provideState(
+
+    'course',
+
+    courseReducer
+
+  ),
+
+    provideStoreDevtools({
+
+      maxAge: 25
+
+    })
   ]
 };
