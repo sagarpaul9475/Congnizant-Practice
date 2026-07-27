@@ -30,6 +30,7 @@ viewCourse(courseId: number) {
 }
 
   isLoading = true;
+  errorMessage = '';
 
   courses: Course[] = [];
   searchTerm = '';
@@ -38,17 +39,29 @@ viewCourse(courseId: number) {
 
   ngOnInit(): void {
 
-  this.courses = this.courseService.getCourses();
-  this.searchTerm =
-    this.route.snapshot.queryParamMap.get('search') ?? '';
-
   this.isLoading = true;
 
-  setTimeout(() => {
+  this.courseService.getCourses().subscribe({
 
-    this.isLoading = false;
+    next: (courses) => {
 
-  }, 1500);
+      this.courses = courses;
+
+    },
+
+    error: (err) => {
+
+      this.errorMessage = err.message;
+
+    },
+
+    complete: () => {
+
+      this.isLoading = false;
+
+    }
+
+  });
 
 }
 searchCourses() {
