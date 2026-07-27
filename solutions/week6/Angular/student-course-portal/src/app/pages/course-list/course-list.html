@@ -3,13 +3,25 @@
 <p *ngIf="isLoading">
     Loading courses...
 </p>
+<input
 
-<div *ngIf="!isLoading; else noCourses">
+    [(ngModel)]="searchTerm"
+
+    placeholder="Search courses">
+
+<button
+
+    (click)="searchCourses()">
+
+    Search
+
+</button>
+<div
+    *ngFor="let course of courses"
+    (click)="viewCourse(course.id)">
 
     <app-course-card
-        *ngFor="let course of courses; trackBy: trackByCourseId"
-        [course]="course"
-        (enrollRequested)="onEnroll($event)">
+        [course]="course">
     </app-course-card>
 
 </div>
