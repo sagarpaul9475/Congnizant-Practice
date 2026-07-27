@@ -1,9 +1,24 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [],
-  templateUrl: './home.html',
-  styleUrl: './home.css',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
 })
-export class Home {}
+export class HomeComponent {
+
+  portalName = 'Student Course Portal';
+
+  isPortalActive = true;
+
+  message = '';
+
+  searchTerm = '';
+
+  onEnrollClick() {
+    this.message = 'Enrollment opened!';
+  }
+}
