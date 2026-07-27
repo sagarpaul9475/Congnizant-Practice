@@ -1,14 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { CourseService } from '../../services/course.service';
+import { CourseSummaryWidgetComponent } from '../../components/course-summary-widget/course-summary-widget.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CourseSummaryWidgetComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  constructor(private courseService: CourseService) {}
+  courseCount = 0;
 
   portalName = 'Student Course Portal';
 
@@ -21,8 +24,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   availableCourses = 12;
 
   ngOnInit(): void {
-    console.log('HomeComponent initialized — courses loaded');
-  }
+
+  this.courseCount = this.courseService.getCourses().length;
+
+}
 
   ngOnDestroy(): void {
     console.log('HomeComponent destroyed');
