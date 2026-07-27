@@ -19,6 +19,19 @@
         formControlName="studentEmail">
 
     <br><br>
+    <div
+    *ngIf="enrollForm.get('studentEmail')?.hasError('emailTaken')">
+
+    Email already exists.
+
+</div>
+
+<div
+    *ngIf="enrollForm.get('studentEmail')?.pending">
+
+    Checking email availability...
+
+</div>
 
     <label>Course ID</label>
 
@@ -27,6 +40,12 @@
         formControlName="courseId">
 
     <br><br>
+    <div
+    *ngIf="enrollForm.get('courseId')?.hasError('invalidCourseId')">
+
+    Course ID must be at least 100.
+
+</div>
 
     <label>Semester</label>
 
@@ -36,8 +55,41 @@
         <option value="Even">Even</option>
 
     </select>
-
     <br><br>
+    <h3>Selected Courses</h3>
+
+<div formArrayName="selectedCourses">
+
+  <div
+      *ngFor="let control of selectedCourses.controls; let i = index">
+
+      <input
+          [formControlName]="i"
+          placeholder="Course Name">
+
+      <button
+          type="button"
+          (click)="removeCourse(i)">
+
+          Remove
+
+      </button>
+
+      <br><br>
+
+  </div>
+
+</div>
+
+<button
+    type="button"
+    (click)="addCourse()">
+
+    Add Course
+
+</button>
+
+<br><br>
 
     <label>
 
