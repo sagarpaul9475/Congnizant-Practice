@@ -1,0 +1,18 @@
+<h3>Notifications</h3>
+
+<button (click)="addNotification()">
+
+    Add Notification
+
+</button>
+
+<ul>
+
+    <li
+      *ngFor="let msg of notificationService.messages">
+
+      {{ msg }}
+
+    </li>
+
+</ul>

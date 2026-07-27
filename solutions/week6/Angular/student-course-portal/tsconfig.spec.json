@@ -11,5 +11,5 @@
   "include": [
     "src/**/*.d.ts",
     "src/**/*.spec.ts"
-  ]
+, "src/app/components/course-summary-widget/course-summary-widget.spec.component.ts"  ]
 }

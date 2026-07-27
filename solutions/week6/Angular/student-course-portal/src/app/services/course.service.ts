@@ -63,3 +63,5 @@ export class CourseService {
   }
 
 }
+
+export type { Course };

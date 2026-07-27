@@ -7,8 +7,9 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HighlightDirective } from '../../directives/highlight.directive';
-import { CreditLabelPipe } from '../../pipes/credit-label.pipe';
+import { HighlightDirective } from '../../directives/highlight.directives';
+import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
+import { EnrollmentService } from '../../services/enrollment.service';
 @Component({
   selector: 'app-course-card',
   standalone: true,
@@ -17,6 +18,9 @@ import { CreditLabelPipe } from '../../pipes/credit-label.pipe';
   styleUrl: './course-card.component.css'
 })
 export class CourseCardComponent implements OnChanges {
+  constructor(
+  private enrollmentService: EnrollmentService
+) {}
 
   @Input() course!: {
     id: number;
@@ -48,9 +52,24 @@ get cardClasses() {
     'expanded': this.isExpanded
   };
 }
+get enrolled(): boolean {
 
+  return this.enrollmentService.isEnrolled(this.course.id);
+
+}
  enroll() {
-  this.isEnrolled = true;
+
+  if (this.enrollmentService.isEnrolled(this.course.id)) {
+
+    this.enrollmentService.unenroll(this.course.id);
+
+  } else {
+
+    this.enrollmentService.enroll(this.course.id);
+
+  }
+
   this.enrollRequested.emit(this.course.id);
+
 }
 }
